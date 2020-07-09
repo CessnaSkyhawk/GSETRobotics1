@@ -1,0 +1,467 @@
+#VRML_SIM R2020a utf8
+WorldInfo {
+  basicTimeStep 16
+  contactProperties [
+    ContactProperties {
+      material1 "Wall"
+      material2 "wall"
+      coulombFriction [
+        -1
+      ]
+      bounce 0
+    }
+  ]
+}
+Viewpoint {
+  orientation 1 0 0 4.71238898038469
+  position -7.921885467467305e-07 10.490809215868488 1.7050007840961774e-05
+  follow "robot"
+  followType "None"
+}
+TexturedBackgroundLight {
+  castShadows FALSE
+}
+Background {
+  skyColor [
+    0.45 0.45 0.45
+  ]
+}
+DEF LF_Floor Floor {
+  name "Floor LF"
+  size 3 4
+  tileSize 3 4
+  appearance PBRAppearance {
+    baseColorMap ImageTexture {
+      url [
+        "Line3.png"
+      ]
+    }
+    metalness 0
+  }
+}
+DEF HOUSE Solid {
+  translation -0.08 0 -2.51
+  children [
+    DEF HouseGroup Group {
+      children [
+        DEF HouseFloor Transform {
+          translation 0 -0.01 0
+          children [
+            DEF HFloor Shape {
+              appearance DEF BlackWall PBRAppearance {
+                baseColor 0 0 0
+                metalness 0
+              }
+              geometry Box {
+                size 1.5 0.02 1
+              }
+            }
+          ]
+        }
+        DEF BKWall Transform {
+          translation 0 0.1 -0.475
+          children [
+            Shape {
+              appearance DEF BlackWall PBRAppearance {
+                baseColor 0 0 0
+                metalness 0
+              }
+              geometry Box {
+                size 1.5 0.2 0.05
+              }
+            }
+          ]
+        }
+        DEF LeftWall Transform {
+          translation -0.725 0.1 0
+          children [
+            Shape {
+              appearance DEF BlackWall PBRAppearance {
+                baseColor 0 0 0
+                metalness 0
+              }
+              geometry Box {
+                size 0.05 0.2 1
+              }
+            }
+          ]
+        }
+        DEF RtWall Transform {
+          translation 0.725 0.1 0
+          children [
+            Shape {
+              appearance DEF BlackWall PBRAppearance {
+                baseColor 0 0 0
+                metalness 0
+              }
+              geometry Box {
+                size 0.05 0.2 1
+              }
+            }
+          ]
+        }
+        DEF ftWall1 Transform {
+          translation -0.375 0.1 0.475
+          children [
+            Shape {
+              appearance DEF BlackWall PBRAppearance {
+                baseColor 0 0 0
+                metalness 0
+              }
+              geometry Box {
+                size 0.75 0.2 0.05
+              }
+            }
+          ]
+        }
+        DEF ftWall2 Transform {
+          translation 0.5375 0.1 0.475
+          children [
+            Shape {
+              appearance DEF BlackWall PBRAppearance {
+                baseColor 0 0 0
+                metalness 0
+              }
+              geometry Box {
+                size 0.375 0.2 0.05
+              }
+            }
+          ]
+        }
+        DEF InsideW1 Transform {
+          translation -0.35 0.1 -0.2
+          children [
+            Shape {
+              appearance DEF BlackWall PBRAppearance {
+                baseColor 0 0 0
+                metalness 0
+              }
+              geometry Box {
+                size 0.05 0.2 0.6
+              }
+            }
+          ]
+        }
+        DEF InsideW3 Transform {
+          translation 0.35 0.1 -0.2
+          children [
+            Shape {
+              appearance DEF BlackWall PBRAppearance {
+                baseColor 0 0 0
+                metalness 0
+              }
+              geometry Box {
+                size 0.05 0.2 0.6
+              }
+            }
+          ]
+        }
+        DEF InsideW2 Transform {
+          translation 0.1875 0.1 0.075
+          children [
+            Shape {
+              appearance DEF BlackWall PBRAppearance {
+                baseColor 0 0 0
+                metalness 0
+              }
+              geometry Box {
+                size 0.375 0.2 0.05
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+  boundingObject USE HouseGroup
+  physics Physics {
+  }
+}
+DEF Supervisor Robot {
+  translation 0.1 0 0.1
+  name "Sup"
+  controller "Supervisor"
+  supervisor TRUE
+}
+DEF Obs Solid {
+  translation -3 0.1 0
+  children [
+    Shape {
+      appearance PBRAppearance {
+        baseColor 0.55 0 1
+      }
+      geometry DEF obs Cylinder {
+        height 0.2
+        radius 0.1
+      }
+    }
+  ]
+  name "solid(1)"
+  boundingObject USE obs
+}
+DEF Cube Solid {
+  translation -3.5 0.02 0
+  children [
+    DEF cubeshape Shape {
+      appearance PBRAppearance {
+        baseColor 1 0 0
+      }
+      geometry Box {
+        size 0.06 0.06 0.06
+      }
+    }
+  ]
+  name "Ball"
+  boundingObject USE cubeshape
+  physics Physics {
+  }
+}
+DEF robot Robot {
+  translation -1.32 0.05 1.6
+  rotation 0 0.9999999999998861 0 1.5707999453213553
+  children [
+    DEF BODY Shape {
+      appearance PBRAppearance {
+        baseColor 0.917647 0.145098 0.145098
+        roughness 1
+        metalness 0
+      }
+      geometry Box {
+        size 0.1 0.05 0.25
+      }
+    }
+    DEF WHEEL1 HingeJoint {
+      jointParameters HingeJointParameters {
+        anchor 0.06 0 0.03
+      }
+      device [
+        RotationalMotor {
+          name "wheel1"
+        }
+      ]
+      endPoint Solid {
+        translation 0.06 0 0.03
+        rotation -0.001646575803121713 0.001646579492641165 0.9999972887783741 1.5708027494923191
+        children [
+          DEF WHEEL Shape {
+            appearance PBRAppearance {
+              baseColor 0.305882 0.898039 0.25098
+              roughness 1
+              metalness 0
+            }
+            geometry Cylinder {
+              height 0.02
+              radius 0.04
+              subdivision 24
+            }
+          }
+        ]
+        boundingObject USE WHEEL
+        physics Physics {
+        }
+      }
+    }
+    DEF WHEEL2 HingeJoint {
+      jointParameters HingeJointParameters {
+        anchor -0.06 0 0.03
+      }
+      device [
+        RotationalMotor {
+          name "wheel2"
+        }
+      ]
+      endPoint Solid {
+        translation -0.06 0 0.03
+        rotation -0.0016465757194773316 0.001646579408967502 0.9999972887786495 1.570802749492051
+        children [
+          USE WHEEL
+        ]
+        name "solid(1)"
+        boundingObject USE WHEEL
+        physics Physics {
+        }
+      }
+    }
+    DEF WHEEL3 HingeJoint {
+      jointParameters HingeJointParameters {
+        anchor 0.06 0 -0.07
+      }
+      device [
+        RotationalMotor {
+          name "wheel3"
+        }
+      ]
+      endPoint Solid {
+        translation 0.06 0 -0.07
+        rotation -7.536429960268494e-15 5.495313512695777e-16 1 1.5707999999999582
+        children [
+          DEF WHEEL Shape {
+            appearance PBRAppearance {
+              baseColor 0.305882 0.898039 0.25098
+              roughness 1
+              metalness 0
+            }
+            geometry Cylinder {
+              height 0.02
+              radius 0.04
+              subdivision 24
+            }
+          }
+        ]
+        name "solid(2)"
+        boundingObject USE WHEEL
+        physics Physics {
+        }
+      }
+    }
+    DEF WHEEL4 HingeJoint {
+      jointParameters HingeJointParameters {
+        anchor -0.06 0 -0.07
+      }
+      device [
+        RotationalMotor {
+          name "wheel4"
+        }
+      ]
+      endPoint Solid {
+        translation -0.06 0 -0.07
+        rotation 7.850447875279571e-16 3.9252239376397855e-16 1 1.570799999999986
+        children [
+          DEF WHEEL Shape {
+            appearance PBRAppearance {
+              baseColor 0.305882 0.898039 0.25098
+              roughness 1
+              metalness 0
+            }
+            geometry Cylinder {
+              height 0.02
+              radius 0.04
+              subdivision 24
+            }
+          }
+        ]
+        name "solid(3)"
+        boundingObject USE WHEEL
+        physics Physics {
+        }
+      }
+    }
+    DEF ARM1 HingeJoint {
+      jointParameters HingeJointParameters {
+        anchor 0.06 0 0.1
+      }
+      device [
+        RotationalMotor {
+          name "arm1"
+          maxPosition 1.8
+        }
+      ]
+      endPoint Solid {
+        translation 0.06 0 0.1
+        rotation -0.0016465748491281322 0.001646578538648907 0.9999972887815157 1.5708027494891588
+        children [
+          DEF armgroup Group {
+            children [
+              Transform {
+                translation 0.07 0 0
+                children [
+                  Shape {
+                    appearance PBRAppearance {
+                      baseColor 0.305882 0.898039 0.25098
+                      metalness 0
+                    }
+                    geometry Box {
+                      size 0.16 0.02 0.02
+                    }
+                  }
+                ]
+              }
+              Transform {
+                translation 0.07 0.121 0
+                children [
+                  Shape {
+                    appearance PBRAppearance {
+                      baseColor 0.305882 0.898039 0.25098
+                      metalness 0
+                    }
+                    geometry Box {
+                      size 0.16 0.02 0.02
+                    }
+                  }
+                ]
+              }
+              Transform {
+                translation 0.14 0.06 0
+                children [
+                  Shape {
+                    appearance PBRAppearance {
+                      baseColor 0.305882 0.898039 0.25098
+                      metalness 0
+                    }
+                    geometry Box {
+                      size 0.02 0.12 0.02
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+        name "solid(4)"
+        boundingObject USE armgroup
+        physics Physics {
+        }
+      }
+    }
+    DEF DS_FRONT DistanceSensor {
+      translation 0 0 0.13
+      rotation 0 1 0 -1.57
+      children [
+        Shape {
+          appearance PBRAppearance {
+            baseColor 0.184314 0.596078 0.847059
+            roughness 1
+            metalness 0
+          }
+          geometry Box {
+            size 0.01 0.01 0.01
+          }
+        }
+      ]
+      name "ds_front"
+      lookupTable [
+        0 0 0
+        0.5 500 0
+      ]
+    }
+    DEF COLOR_SENSOR DistanceSensor {
+      translation 0 -0.022 0.075
+      rotation 0 0 -1 1.57
+      children [
+        Shape {
+          appearance PBRAppearance {
+            baseColor 0.184314 0.596078 0.847059
+            roughness 1
+            metalness 0
+          }
+          geometry Box {
+            size 0.01 0.01 0.01
+          }
+        }
+      ]
+      name "ls_bottom"
+      lookupTable [
+        0 0 0
+        0.1 150 0
+      ]
+      type "infra-red"
+      numberOfRays 5
+    }
+  ]
+  boundingObject USE BODY
+  physics Physics {
+    density -1
+    mass 1
+  }
+  controller "Contest1"
+}
